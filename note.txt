@@ -1,0 +1,120 @@
+//2.6 - Type Assignment & Type Inference
+
+
+1) Type Inference holo ts er ekta function jeta ts ke kono variable or constant er type ki ta detect kora.
+2) const num1 = 5; // const num1: 5
+   let num1 = 5;   // let num1: number
+3) BP- jei variable ke immediate initiate kora hoi na. sekhane type declare kora.
+   let num1: number;
+   num1 = 5;
+
+
+//2.9 - Nested obj and Types 
+
+
+1) An interesting case for nested obj:
+
+    const product = {
+  id: 'abc1',
+  price: 12.99,
+  tags: ['great-offer', 'hot-and-new'],
+  details: {
+    title: 'Red Carpet',
+    description: 'A great carpet - almost brand-new!'
+  }
+}
+This would be the type of such an object:
+
+{
+  id: string;
+  price: number;
+  tags: string[],
+  details: {
+    title: string;
+    description: string;
+  }
+}
+
+
+
+// 2.16 - Type Aliases Custom Types
+
+type UserObj = {
+    name: string;
+    id: number
+}
+
+type UserType = 'YES' | 'NO'
+
+const userObj: UserObj = {
+    name : 'karim',
+    id : 1
+}
+
+const userLogger = ((userObj: UserObj, isClient: UserType) => {
+    console.log('id-------------name--------------Date-------------Client');
+    console.log(userObj.id + '---------------' + userObj.name + '-------------------' + new Date() + '---------------' + isClient);
+      
+})(userObj, 'YES')
+
+
+
+// 2.19 - Function Return Types and void
+
+
+const printNumber = ((num: number): void => {
+    console.log('Result: ', num);
+})(5)
+
+
+const printNumberAlt = ((num: number): undefined => {
+    console.log('Result: ', num);
+    return;
+})(10)
+
+
+1) Akhane printNumber() er return type void deya hocce jodio eta undefined return kore. But ts return kora chara undefined ke return value hisabe nibe na.
+
+
+
+// 2.20 - Function as Types
+
+
+1) js er built-in type er sathe ts er jei extra type gula ase, tar moddhe Function o ekta
+
+type UserData = {
+    id: number;
+    name: string
+}
+
+const combineUserData = (id: number, name: string): UserData => {
+    return {id: id, name: name}
+}
+
+console.log(combineUserData(7e1, 'rah'));
+
+2) 7e1 holo exponent
+
+
+
+// 2.21 - Function Types and Callback
+
+
+type Operation = (num: number[]) => void
+
+const calculate = (num: number[], operation: Operation): void => {
+    
+    return operation(num); // jodio calculate() er return type void, tobow amra return korte pari. eta ts er kono bug na. eta just bujhai je calculate() jai return kore ts eta check korbe na.
+    
+}
+
+const multiply = (num: number[]): number => {
+    
+    return num.reduce((result: number, num: number, index: number, arr: number[]) => {
+        return result *= num;
+    })
+}
+
+
+
+console.log(calculate([1,2,3,4,5], multiply));
