@@ -118,3 +118,221 @@ const multiply = (num: number[]): number => {
 
 
 console.log(calculate([1,2,3,4,5], multiply));
+
+
+
+// 2.23 - The unknown Type
+
+1) unknown holo any type er more restricted version
+
+
+
+
+// 2.24 - The never Type
+
+1) The never type is used when you are sure that something is never going to occur. For example, you write a function which will not return to its end point or always throws an exception.
+
+
+
+// 4.2 - let and const
+
+1) var er scope doita funtion scope ar global(all file in your project! onekta super super global) scope. etar block scope nai i.e. if(){} er moto block scope e var likleo eta global hoye jai. mane function ar global chara ar kono scope var k atkate pare na.
+
+2) let ar const er block scope ase.
+
+
+
+// 4.3 - Arrow Functions
+
+1) const printOutput: (a: number | string) => void = output => console.log(output)
+
+
+
+//4.4 - Default Function Parameters
+
+ type User ={
+    readonly id: number,
+    name: string,
+    greet: (name?: string) => void
+}
+
+let betterUser: User = {
+    id: 2,
+    name: 'Masud',
+    greet: (name: string = betterUser.name): void => {
+        console.log(`Hello ${name}`)
+    }
+}
+
+betterUser.greet();
+
+1) Normally user.greet k optional banano chara code ta error dibe. karon ts e parameter e default value dite gele oita k second parameter hoite hobe. karon js parameter push korar somoy serially parameter e argument value set kore. 
+
+
+
+
+// 5.5 - Constructor Functions and The this Keyword
+
+class People {
+    name: string;
+    private age: number = 0;
+
+    constructor(name: string  ) {
+        this.name = name
+    }
+
+    modifyAge(age: number){
+        this.age = age
+        console.log(this.age)
+    }
+
+    showPersonalInfo() {
+        console.log('Name :', this.name)
+        console.log('Age :', this.age)
+    }
+}
+
+const masud = new People('masud')
+
+const showPersonalInfoCopy = {show: masud.showPersonalInfo}
+
+showPersonalInfoCopy.show();
+
+1) This will create Name: undefined and Age: undefined because of this keyword. To solve this we can place this: People in parameter list of People.showPersonalInfo() to help ts to catch the bug in development. So, better of above will be:
+
+class People {
+    name: string;
+    private age: number = 0;
+
+    constructor(name: string  ) {
+        this.name = name
+    }
+
+    modifyAge(age: number){
+        this.age = age
+        console.log(this.age)
+    }
+
+    showPersonalInfo(this: People) {
+        console.log('Name :', this.name)
+        console.log('Age :', this.age)
+    }
+}
+
+const masud = new People('masud')
+
+const showPersonalInfoCopy = {show: masud.showPersonalInfo}
+
+showPersonalInfoCopy.show();
+
+
+
+// 5.6 - private and public Access Modifiers
+
+
+class People {
+    name: string;
+    age: number = 0;
+
+    constructor(name: string  ) {
+        this.name = name
+    }
+
+    modifyAge(age: number){
+
+        if(age> 40){
+        this.age = age
+        console.log(this.age)
+        }
+    }
+
+    showPersonalInfo(this: People) {
+        console.log('Name :', this.name)
+        console.log('Age :', this.age)
+    }
+}
+
+const masud = new People('masud')
+
+masud.age = 45
+masud.modifyAge(55)
+
+1) ekhane age doivabe modify kora jacce. etar doita problem ase.
+  a) team er ekekjon ekek way te age k change korbe.
+  b) masud.age modify korar fole ata validation (if(age> 40 )) avoid kortese.
+
+So, best holo sob object er field gula k private/protected kora and getter and setter diye set and get kora future ready thakar jonno. karon prothom e public thaka obj field k jodi project er majkhane validation dite giye jodi obj field ta private/protected korte jai, tahole exiting code er jekhane ai obj field ta use kora hoise sekhane problem hobe.
+
+
+
+// 5.7 - Shorthand Initialization
+
+
+class People {
+    // name: string;
+    // age: number = 0;
+
+    constructor(public name: string, private age: number  ) {
+        
+    }
+
+    modifyAge(age: number){
+        this.age = age
+        console.log(this.age)
+    }
+
+    showPersonalInfo(this: People) {
+        console.log('Name :', this.name)
+        console.log('Age :', this.age)
+    }
+}
+
+above code is equivalent to :
+
+class People {
+    name;
+    age;
+    // name: string;
+    // age: number = 0;
+    constructor(name, age) {
+        this.name = name;
+        this.age = age;
+    }
+    modifyAge(age) {
+        this.age = age;
+        console.log(this.age);
+    }
+    showPersonalInfo() {
+        console.log('Name :', this.name);
+        console.log('Age :', this.age);
+    }
+}
+const masud = new People('masud', 45);
+masud.modifyAge(55);
+
+
+// 5.11 - Overriding Properties and The protected Modifiers
+
+If a obj field -
+
+is public    :  ai obj field ta class er method, bairer je kew access and modify korte parbe.
+
+is protected :  ai obj field ta only and only a) oi class er method, b) oi class hote inherite kora child class er method access and modify    
+                korte parbe.
+
+is private   :  ai obj field ta  only and only a) oi class er method access and modify korte parbe.
+
+
+
+
+// 5.13 - Static Methods and Properties
+
+1) kono class er static field or method k dakte hoy Math.PI ai vabe. oi class er vitore o nonstatic method e PI k access kinto this.PI kore pawa jabe na. Oikhaneo Math.PI diye access korte hobe.
+
+
+
+// 5.14 - Abstract Classes
+
+1) abtract class holo sei class jar compokhe akta field or method abstract.
+   a) abstract class can not be instantiated because there is unimplemented method or field!!!
+   b) It's a great way to force developer using your class to implement certain method of field.
