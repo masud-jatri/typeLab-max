@@ -336,3 +336,44 @@ is private   :  ai obj field ta  only and only a) oi class er method access and 
 1) abtract class holo sei class jar compokhe akta field or method abstract.
    a) abstract class can not be instantiated because there is unimplemented method or field!!!
    b) It's a great way to force developer using your class to implement certain method of field.
+
+
+
+// 5.23 - Inferences as Function Types
+
+1) function type - 
+
+type AddFn = (a: number, b: number) => number
+
+equivalent interface code will be- 
+
+interface AddFn {
+    (a: number, b: number): number;
+}
+
+
+
+
+// 6.3 - More on Type Guards
+
+1) type gaurd holo kono property use korar age check diye neya j oi property ase kina . useful js feature for type gaurding are: 
+
+    a) 'in' for obj property
+    b) 'instanceof' for obj of class
+
+
+
+
+// 6.4 - Discriminated Unions
+
+1) Discriminated Unions holo type gaurd er kaj shohoz korar jonno use kora hoi.
+
+
+
+// 6.5 - Type Casting
+
+1) eta holo ts k unusual type chinanor jonno babohar kora hoi. Ex- HTMLInputElement
+
+
+
+
