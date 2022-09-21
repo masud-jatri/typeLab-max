@@ -353,6 +353,13 @@ interface AddFn {
 
 
 
+//6.2 - Intersection Types
+
+1) interface ElevatedEmployee extends Employee, Admin {...} etar similar holo 
+   type ElevatedEmployee = Employee & Admin
+
+
+
 
 // 6.3 - More on Type Guards
 
@@ -366,14 +373,68 @@ interface AddFn {
 
 // 6.4 - Discriminated Unions
 
-1) Discriminated Unions holo type gaurd er kaj shohoz korar jonno use kora hoi.
+1) Discriminated Unions holo type gaurd er kaj shohoz korar jonno use kora hoi. ai jonno prottek interface e extra property add kora hoi. Ex-
 
+    interface Bird {
+    kind: 'bird',
+    flyingSpeed: number
+}
+
+interface Horse {
+    kind: 'horse',
+    runingSpeed: number
+}
+
+type Animal = Bird | Horse
+
+const moveAnimal = (animal: Animal) => {
+    let speed: number;
+
+    switch(animal.kind) {
+        case 'bird':
+            speed = animal.flyingSpeed
+            break;
+        case 'horse': 
+            speed = animal.runingSpeed
+            break;
+
+    }
+
+    console.log('speed :', speed);
+    
+}
+
+
+moveAnimal({kind: 'bird', flyingSpeed: 40});
+
+ekhane kind property add kore Discriminate kora hoise.
 
 
 // 6.5 - Type Casting
 
 1) eta holo ts k unusual type chinanor jonno babohar kora hoi. Ex- HTMLInputElement
 
+const nameInput = document.getElementById('name')
+
+if(nameInput){
+    (nameInput as HTMLInputElement).value = 'hello'
+}
 
 
 
+const nameInputAlt = document.getElementById('name') as HTMLInputElement
+nameInputAlt.value = 'nice'
+
+
+// 6.6 - Index Properties
+
+1) eta hocce emon akta technic jekhane flexible vabe property rakha jay. Ex- 
+
+    interface ErrorContainer {
+    [key: string]: string
+}
+
+const ErrorMessages: ErrorContainer = {
+    password: 'password must contain at least one special character',
+    userName: 'user name must start with character'
+}
